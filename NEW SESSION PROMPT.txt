@@ -9,5 +9,6 @@ Before we begin coding, I need you to familiarize yourself with the current stat
     * `src/layouts/Layout.astro` and `src/pages/index.astro`: Look at how the CSS Variables are utilized in the Tailwind utility classes to support seamless theme transitioning.
     * `src/components/Navigation.astro`: Review the bottom `<script>` block to understand the `localStorage` logic and the custom HTML5 Canvas `requestAnimationFrame` logic used for the "Hyperdrive" transition.
     * `src/components/ProjectsCarousel.jsx`: Briefly review this file to understand the React Three Fiber WebGL implementation.
+    * `src/pages/galaxy.astro`: Review the procedural WebGL logarithmic spiral galaxy implementation, taking note of how `THREE.Points` are used and how the data hubs are algorithmically mapped onto the spiral arms.
 
 Once you have read these files and understand the tech stack, the dual-theme CSS Variable architecture, and the complex animations, summarize your understanding of the project and ask me what we should work on next!

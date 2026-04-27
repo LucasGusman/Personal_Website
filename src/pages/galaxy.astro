@@ -9,7 +9,7 @@ import { hubs } from '../data/neuralNetwork.js';
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>P.WebGL Brain Network</title>
+    <title>P.WebGL Galaxy Network</title>
 </head>
 <body class="bg-[#050505] text-white m-0 p-0 font-sans w-screen h-screen overflow-hidden select-none">
 
@@ -32,26 +32,26 @@ import { hubs } from '../data/neuralNetwork.js';
         
         <!-- Header -->
         <div class="mb-6 flex items-center justify-between">
-            <div class="font-bold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">Mess with my brain</div>
+            <div class="font-bold tracking-widest uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">Galactic Control Panel</div>
         </div>
 
         <div class="space-y-6">
             <!-- Node Density -->
             <div>
                 <div class="flex justify-between items-end mb-2">
-                    <span class="font-medium tracking-wide text-zinc-200"># of Braincells</span>
+                    <span class="font-medium tracking-wide text-zinc-200">Star Density</span>
                     <span id="label-density" class="text-[11px] font-mono text-blue-400/90 text-right uppercase tracking-wider"></span>
                 </div>
-                <input type="range" id="slider-density" min="10" max="1000" value="300" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all" />
+                <input type="range" id="slider-density" min="5000" max="100000" value="50000" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-500 hover:accent-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all" />
             </div>
 
             <!-- Path Connections -->
             <div>
                 <div class="flex justify-between items-end mb-2">
-                    <span class="font-medium tracking-wide text-zinc-200">Trains of Thought</span>
+                    <span class="font-medium tracking-wide text-zinc-200">Arm Spread</span>
                     <span id="label-connections" class="text-[11px] font-mono text-orange-400/90 text-right uppercase tracking-wider"></span>
                 </div>
-                <input type="range" id="slider-connections" min="20" max="250" value="100" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-orange-500 hover:accent-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all" />
+                <input type="range" id="slider-connections" min="1" max="10" value="4" class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-orange-500 hover:accent-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 transition-all" />
             </div>
         </div>
     </div>
@@ -74,7 +74,6 @@ import { hubs } from '../data/neuralNetwork.js';
     <script type="module">
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
         try {
             // ----------------------------------------------------
@@ -231,94 +230,31 @@ import { hubs } from '../data/neuralNetwork.js';
 
 
         // ----------------------------------------------------
-        // LAYER 1: THE EXPLICIT ASSET BRAIN BOUNDARY
+        // LAYER 1: THE GALAXY GROUP
         // ----------------------------------------------------
-        const brainGroup = new THREE.Group();
-        scene.add(brainGroup);
+        const galaxyGroup = new THREE.Group();
+        scene.add(galaxyGroup);
+        // (Procedural particles take the place of the old GLB biological shell)
 
-        // The "BrainFacts" style material - Translucent, glowing outline, wireframe accents
-        const shellMatBase = new THREE.MeshPhongMaterial({
-            color: 0x1e3a8a, 
-            transparent: true,
-            opacity: 0.05, // Extremely faint 
-            side: THREE.DoubleSide,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
-        });
-        
-        // Add a secondary faint wireframe to explicitly highlight the bounds cleanly
-        const shellMatWire = new THREE.MeshBasicMaterial({
-            color: 0x3b82f6,
-            transparent: true,
-            opacity: 0.03, // Toned down severely to not interfere with inner nodes
-            wireframe: true,
-            blending: THREE.AdditiveBlending
-        });
-
-        // Use the Industry Standard GLTF Loader to load the actual artist-mapped medical brain
-        const loader = new GLTFLoader();
-        loader.load('/brain_low.glb', (gltf) => {
-            const loadedModel = gltf.scene;
-
-            // Array to collect wireframes (cannot modify children while traversing them directly)
-            const wireframes = [];
-
-            // Strip default downloaded materials and apply explicit Ghost Shell aesthetics
-            loadedModel.traverse((child) => {
-                if (child.isMesh) {
-                    child.material = shellMatBase;
-                    
-                    // To get the wireframe perfectly on top without Z-fighting, we use an identical second mesh
-                    const wireMesh = new THREE.Mesh(child.geometry, shellMatWire);
-                    wireframes.push(wireMesh);
-                }
-            });
-
-            // Append all wireframes to the model natively
-            wireframes.forEach(w => loadedModel.add(w));
-
-            // Auto-Center and Uniformly Scale the imported model (in case the downloaded model is massively huge or offset!)
-            const box = new THREE.Box3().setFromObject(loadedModel);
-            const size = box.getSize(new THREE.Vector3());
-            const center = box.getCenter(new THREE.Vector3());
-
-            // Snap the exact origin to 0,0,0
-            loadedModel.position.x += (loadedModel.position.x - center.x);
-            loadedModel.position.y += (loadedModel.position.y - center.y);
-            loadedModel.position.z += (loadedModel.position.z - center.z);
-            
-            // Re-scale the asset to physically map OVER our Neural Network system
-            // The interior system spans ~760 lengths on Z. We will map the max dimension of the downloaded model to 780 to wrap it perfectly.
-            const targetLength = 780;
-            const maxDimension = Math.max(size.x, size.y, size.z); 
-            const scaleFactor = targetLength / maxDimension;
-            loadedModel.scale.set(scaleFactor, scaleFactor, scaleFactor);
-            window.brainModelRef = loadedModel;
-
-            // The downloaded model might require default Y-rotation if it faces the wrong way, we will rotate it slightly for optimal starting angle
-            loadedModel.rotation.y = Math.PI / 2; // Spin it 90 degrees just to see the side profile better immediately
-
-            brainGroup.add(loadedModel);
-        });
 
         // ----------------------------------------------------
         // LAYER 2: THE DATA HUBS AND FLOATING LABELS
         // ----------------------------------------------------
         const HTML_LABELS = []; // We will map these coordinates every frame
 
-        // THE NEURAL CORE (Return to Center!)
-        const coreReturnGeo = new THREE.SphereGeometry(25, 32, 32);
-        // Explicitly colored dark gray to heavily contrast against the bright white text overlaid on top of it!
-        const coreReturnMat = new THREE.MeshBasicMaterial({ color: 0x222222, transparent: true });
+        // THE GALACTIC CORE (Return to Center!)
+        const coreReturnGeo = new THREE.SphereGeometry(30, 32, 32);
+        // Brilliant white/gold glowing supermassive core
+        const coreReturnMat = new THREE.MeshBasicMaterial({ color: 0xffffe0, transparent: true, opacity: 0.9 });
         const coreReturnMesh = new THREE.Mesh(coreReturnGeo, coreReturnMat);
         coreReturnMesh.position.set(0, 0, 0);
-        coreReturnMesh.userData.treeId = 'CORE'; // Explicitly map it so it fades correctly
-        scene.add(coreReturnMesh);
-        clickableMeshes.push(coreReturnMesh); // Add to Raycaster
+        coreReturnMesh.userData.treeId = 'CORE'; 
+        galaxyGroup.add(coreReturnMesh);
+        clickableMeshes.push(coreReturnMesh); 
 
-        // Lighting for the mechanical core
-        const coreLight = new THREE.PointLight(0xffffff, 150, 900);
-        coreReturnMesh.add(coreLight);
+        // Intense core glow
+        const supermassiveLight = new THREE.PointLight(0xffffe0, 500, 1500);
+        coreReturnMesh.add(supermassiveLight);
 
         // UI Label for the mechanical core
         const coreLabelEl = document.createElement('div');
@@ -346,9 +282,23 @@ import { hubs } from '../data/neuralNetwork.js';
             mesh.lookAt(vEnd);
             mesh.userData.treeId = treeId; // Bind it to the Ghost Opacity Engine!
             
-            scene.add(mesh);
+            galaxyGroup.add(mesh);
             clickableMeshes.push(mesh); // Track it alongside everything else so the Opacity Engine loops over it automatically!
         }
+
+        // Procedurally remap hub coordinates along spiral arms before processing them
+        const numArmsBase = 4; // Assume 4 arms for hub distribution
+        window.USER_HUBS.forEach((hub, i) => {
+            const arm = i % numArmsBase;
+            const armAngle = arm * ((Math.PI * 2) / numArmsBase);
+            const distIndex = Math.floor(i / numArmsBase) + 1;
+            const radius = 250 + (distIndex * 150) + (Math.random() * 50); // Spread outwards
+            const theta = armAngle + (radius * 0.005); // spiral winding
+            
+            hub.x = Math.cos(theta) * radius;
+            hub.y = (Math.random() - 0.5) * 30; // very flat vertical plane
+            hub.z = Math.sin(theta) * radius;
+        });
 
         window.USER_HUBS.forEach(hub => {
             // Massive Bright Glowing Core
@@ -358,7 +308,7 @@ import { hubs } from '../data/neuralNetwork.js';
             const coreMesh = new THREE.Mesh(coreGeo, coreMat);
             coreMesh.position.set(hub.x, hub.y, hub.z);
             coreMesh.userData.treeId = hub.id; // Map specifically to isolate Focus trees!
-            scene.add(coreMesh);
+            galaxyGroup.add(coreMesh);
             clickableMeshes.push(coreMesh); // Add to Raycaster
 
             // Add literal Light Source so the brain shell glows around the Hub!
@@ -401,13 +351,13 @@ import { hubs } from '../data/neuralNetwork.js';
 
         function rebuildAmbientNetwork() {
             if (ambientNodesMesh) { 
-                scene.remove(ambientNodesMesh); 
+                galaxyGroup.remove(ambientNodesMesh); 
                 clickableMeshes.splice(clickableMeshes.indexOf(ambientNodesMesh), 1);
                 ambientNodesMesh.geometry.dispose(); 
                 ambientNodesMesh.material.dispose(); 
             }
             if (ambientLineMesh) { 
-                scene.remove(ambientLineMesh); 
+                galaxyGroup.remove(ambientLineMesh); 
                 clickableMeshes.splice(clickableMeshes.indexOf(ambientLineMesh), 1);
                 ambientLineMesh.geometry.dispose(); 
                 ambientLineMesh.material.dispose(); 
@@ -422,75 +372,69 @@ import { hubs } from '../data/neuralNetwork.js';
             const positions = new Float32Array(nodeCount * 3);
             
             let pIndex = 0;
+            let cIndex = 0;
             const activeNodeCount = nodeCount;
+            const numArms = THRESHOLD; // The connections slider is now the "Arms" slider
+
+            const colors = new Float32Array(activeNodeCount * 3);
+            const coreColor = new THREE.Color(0xffffe0); // glowing hot center
+            const armColor = new THREE.Color(0x38bdf8);  // neon cyan/blue arms
+            const edgeColor = new THREE.Color(0xc084fc); // purple distant edges
 
             for (let i = 0; i < activeNodeCount; i++) {
-                let bx, by, bz;
-                // Rejection loop: ensure points are securely tightly bound inside biological requirements
-                let validPoint = false;
-                while(!validPoint) {
-                    let x = (Math.random() - 0.5) * 2;
-                    let y = (Math.random() - 0.5) * 2;
-                    let z = (Math.random() - 0.5) * 2;
-                    
-                    if(x*x + y*y + z*z < 1) { // Standard spherical container
-                        bx = x * 320; 
-                        by = (y * 280) + 50; 
-                        bz = z * 370;
-                        
-                        // Strict Biological Space Check: Frontal/Temporal Overhang "Cinema Plane" cut!
-                        // Based definitively on the line drawn straight from Core (0,0,0) down to Cinema (0, -50, -200)
-                        // If z is in the Front (negative depths), and y is physically underneath that specific 25% mathematical slope, slice it!
-                        if (bz < 0 && by < (bz * 0.25)) {
-                            validPoint = false; 
-                        } else {
-                            validPoint = true;
-                        }
-                    } 
-                }
+                // Procedural Logarithmic Spiral
+                const distance = Math.pow(Math.random(), 2) * 1200; // Dense at core, spreading outwards
+                
+                // Spiral arm base angle
+                const angle = (distance * 0.004) + (i % numArms) * ((Math.PI * 2) / numArms);
+                
+                // Scatter / arm thickness
+                const armOffset = (Math.random() - 0.5) * 150 * (1 - Math.exp(-distance * 0.005));
+                const randomAngleOffset = (Math.random() - 0.5) * 0.5; // dust scatter
+                
+                const finalAngle = angle + randomAngleOffset;
 
+                let bx = Math.cos(finalAngle) * distance + Math.cos(finalAngle + Math.PI/2) * armOffset;
+                let bz = Math.sin(finalAngle) * distance + Math.sin(finalAngle + Math.PI/2) * armOffset;
+                
+                // Height thickness (thicker core, flat disk)
+                const heightThickness = Math.max(10, 150 * Math.exp(-distance * 0.005));
+                let by = (Math.random() - 0.5) * heightThickness * (Math.random() < 0.5 ? 1 : -1) * Math.random(); 
+                
                 positions[pIndex++] = bx;
                 positions[pIndex++] = by;
                 positions[pIndex++] = bz;
+
+                // Dynamic Color Mapping based on distance from core
+                const mixColor = new THREE.Color();
+                if (distance < 200) {
+                    mixColor.lerpColors(coreColor, armColor, distance / 200);
+                } else {
+                    mixColor.lerpColors(armColor, edgeColor, Math.min(1, (distance - 200) / 800));
+                }
+                
+                colors[cIndex++] = mixColor.r;
+                colors[cIndex++] = mixColor.g;
+                colors[cIndex++] = mixColor.b;
             }
 
             pointGeoRef = new THREE.BufferGeometry();
             pointGeoRef.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            const pointMat = new THREE.PointsMaterial({ color: 0xffffff, size: 5, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
-            ambientNodesMesh = new THREE.Points(pointGeoRef, pointMat);
-            ambientNodesMesh.userData.isAmbient = true; // Wire to the opacity ghost engine natively
-            scene.add(ambientNodesMesh);
-            clickableMeshes.push(ambientNodesMesh); // Push so the loop can hit it!
-
-            // Execute brute force O(N^2) line connection generation safely
-            const linePositions = [];
-            const lineColors = [];
-            const colorBlue = new THREE.Color(0x3b82f6);
-            const colorOrange = new THREE.Color(0xea580c);
-
-            for (let i = 0; i < nodeCount; i++) {
-                const v1 = new THREE.Vector3(positions[i*3], positions[i*3+1], positions[i*3+2]);
-                const nodeColor = Math.random() > 0.4 ? colorBlue : colorOrange;
-
-                for (let j = i + 1; j < nodeCount; j++) {
-                    const v2 = new THREE.Vector3(positions[j*3], positions[j*3+1], positions[j*3+2]);
-                    if (v1.distanceTo(v2) < THRESHOLD) {
-                        linePositions.push(v1.x, v1.y, v1.z);
-                        linePositions.push(v2.x, v2.y, v2.z);
-                        lineColors.push(nodeColor.r, nodeColor.g, nodeColor.b);
-                        lineColors.push(nodeColor.r, nodeColor.g, nodeColor.b);
-                    }
-                }
-            }
-
-            lineGeoRef = new THREE.BufferGeometry();
-            lineGeoRef.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-            lineGeoRef.setAttribute('color', new THREE.Float32BufferAttribute(lineColors, 3));
+            pointGeoRef.setAttribute('color', new THREE.BufferAttribute(colors, 3));
             
-            const lineMat = new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending });
-            ambientLineMesh = new THREE.LineSegments(lineGeoRef, lineMat);
+            // Use additive blending and vertex colors for a beautiful nebula glow
+            const pointMat = new THREE.PointsMaterial({ size: 4, vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, depthWrite: false });
+            ambientNodesMesh = new THREE.Points(pointGeoRef, pointMat);
+            ambientNodesMesh.userData.isAmbient = true; 
+            galaxyGroup.add(ambientNodesMesh);
+            clickableMeshes.push(ambientNodesMesh); 
+
+            // Create a dummy empty mesh for ambientLineMesh so the physics engine doesn't crash on hover states
+            const emptyGeo = new THREE.BufferGeometry();
+            const emptyMat = new THREE.LineBasicMaterial({ transparent: true, opacity: 0 });
+            ambientLineMesh = new THREE.LineSegments(emptyGeo, emptyMat);
             ambientLineMesh.userData.isAmbient = true;
-            scene.add(ambientLineMesh);
+            galaxyGroup.add(ambientLineMesh);
             clickableMeshes.push(ambientLineMesh);
         }
 
@@ -512,19 +456,15 @@ import { hubs } from '../data/neuralNetwork.js';
         exitBtn.addEventListener('pointermove', (e) => e.stopPropagation());
 
         function updateDensityLabel(val) {
-            if (val <= 200) return "Super realistic mode";
-            if (val <= 400) return "Maybe on a good day";
-            if (val <= 600) return "A bit generous";
-            if (val <= 800) return "Now we're just lying";
-            return "Psshhh in my dreams";
+            if (val <= 20000) return "Sparse Cluster";
+            if (val <= 40000) return "Dwarf Galaxy";
+            if (val <= 60000) return "Spiral Galaxy";
+            if (val <= 80000) return "Supermassive";
+            return "Milky Way";
         }
         
         function updateConnectionsLabel(val) {
-            if (val <= 60) return "What was I saying?";
-            if (val <= 110) return "Connecting the dots...";
-            if (val <= 160) return "Actually making sense";
-            if (val <= 210) return "Galaxy Brain unlocking";
-            return "Who needs anchor points?";
+            return val + " Spiral Arms";
         }
 
         // Initialize natively
@@ -638,11 +578,11 @@ import { hubs } from '../data/neuralNetwork.js';
                 const catMeshRender = new THREE.Mesh(cG, cM);
                 catMeshRender.position.copy(catPos);
                 catMeshRender.userData.treeId = hub.id;
-                scene.add(catMeshRender);
+                galaxyGroup.add(catMeshRender);
                 clickableMeshes.push(catMeshRender);
 
                 // Generation: Thick Hierarchical Link directly to Parent Hub
-                createThickLine(hubCenter, catPos, hub.color, 1.8, 0.8, hub.id);
+                // Lines disabled by request
 
                 // Bind HTML label for the CATEGORY node
                 const catEl = document.createElement('div');
@@ -707,11 +647,11 @@ import { hubs } from '../data/neuralNetwork.js';
                     const leafMeshRender = new THREE.Mesh(iG, iM);
                     leafMeshRender.position.copy(itemPos);
                     leafMeshRender.userData.treeId = hub.id;
-                    scene.add(leafMeshRender);
+                    galaxyGroup.add(leafMeshRender);
                     clickableMeshes.push(leafMeshRender);
 
                     // Generation: Thick Hierarchical Link directly to Parent Category
-                    createThickLine(catPos, itemPos, hub.color, 1.0, 0.6, hub.id);
+                    // Lines disabled by request
 
                     // Bind HTML label for the exact Data Item
                     const itemEl = document.createElement('div');
@@ -802,7 +742,7 @@ import { hubs } from '../data/neuralNetwork.js';
                 controls.update();
             }
 
-            // Auto-rotation disabled for now by request.
+            galaxyGroup.rotation.y -= 0.0005;
 
             // Iterate through every active label to sync HTML coordinates with WebGL 3D projections!
             HTML_LABELS.forEach(data => {
@@ -813,7 +753,7 @@ import { hubs } from '../data/neuralNetwork.js';
 
                 // Natively project the raw 3D Vector to the perspective camera
                 vProj.copy(data.position);
-                vProj.applyMatrix4(brainGroup.matrixWorld); // Account for the ambient rotation!
+                vProj.applyMatrix4(galaxyGroup.matrixWorld); // Account for the ambient rotation!
                 vProj.project(camera); 
                 
                 // Project handles hidden elements naturally via z bounds natively if we enforce it:
@@ -860,7 +800,7 @@ import { hubs } from '../data/neuralNetwork.js';
                 // Base opacity is 0.5 for ambient nodes/dots, 0.25 for webbing lines, 1.0 for solid models
                 let baseTargetOpacity = 1.0;
                 if (mesh.userData.isAmbient) {
-                    baseTargetOpacity = mesh instanceof THREE.Points ? 0.5 : 0.25;
+                    baseTargetOpacity = mesh instanceof THREE.Points ? 0.9 : 0.0;
                 }
                 
                 mesh.material.opacity = isGhostedMesh ? 0.05 : baseTargetOpacity;
@@ -868,18 +808,6 @@ import { hubs } from '../data/neuralNetwork.js';
                 // If this is a biological array blocking the camera and we are focused on a tree, literally slice it transparent!
                 mesh.material.clippingPlanes = (isGhostedMesh && mesh.userData.isAmbient) ? [focusClipPlane] : [];
             });
-            
-            // Faint down the Outer GLTF Biological Shell and slice it!
-            if (window.brainModelRef) {
-                const isGhostedShell = activeFocusTreeId !== null && activeFocusTreeId !== 'CORE';
-                window.brainModelRef.traverse(child => {
-                    if (child.isMesh) {
-                        const nativeTarget = child.material.wireframe ? 0.03 : 0.06;
-                        child.material.opacity = isGhostedShell ? 0.01 : nativeTarget; 
-                        child.material.clippingPlanes = isGhostedShell ? [focusClipPlane] : [];
-                    }
-                });
-            }
 
             renderer.render(scene, camera);
         }

@@ -37,6 +37,21 @@ This document serves as the architectural summary and current state of the Lucas
 *   **File**: `src/pages/projects/[id].astro`
 *   **Architecture**: Astro dynamic routes generate individual pages for all 8 projects. Currently a "Mission Briefing" boilerplate layout.
 
+### 5. Interactive Procedural Galaxy Map (`/galaxy`)
+*   **File**: `src/pages/galaxy.astro`
+*   **Architecture**: Built using raw Three.js `THREE.Points` and mathematical logarithmic spiral distributions.
+*   **Features**:
+    *   Replaced the static `.glb` biological brain map with a dynamic, rotating Milky Way simulation.
+    *   Data hubs (Categories, Items) are placed precisely along the spiral arms.
+    *   Maintains the complex screen-space 2D HTML projection logic so text labels effortlessly track the galaxy as it rotates on the Y-axis.
+
+### 6. High-Fidelity 2.5D Apollo Switch
+*   **File**: `src/components/ApolloSwitch.astro`
+*   **Architecture**: Pure CSS 3D illusion without relying on heavy WebGL geometry.
+*   **Features**: 
+    *   Utilizes Y-translation coupled with dynamically inverted gradients and box-shadows to simulate a rigid, mechanical switch snapping between ON and OFF states without the optical distortion of a flat plane rotating into the screen.
+    *   Automatically observes the `<html>` theme state to stay visually synced if the user changes the theme via localStorage or other tabs.
+
 ## Next Steps / Backlog for the Next Session
 1.  **Populate Remaining Assets**: Projects 1 through 6 currently have images mapped. Projects 7 and 8 are still utilizing solid-color NASA gradient placeholders. These need actual project images placed in `/public/projects/`.
 2.  **Flesh Out Project Detail Pages**: The `[id].astro` dynamic route is currently a template. It needs to be updated to pull unique descriptions, tech stacks, and full galleries for each specific project from a data file or CMS.

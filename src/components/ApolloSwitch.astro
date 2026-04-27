@@ -1,0 +1,293 @@
+---
+// ApolloSwitch.astro
+// A 2.5D realistic toggle switch mimicking Apollo Command Module hardware
+---
+
+<div class="apollo-switch-wrapper">
+  <!-- The main square plate -->
+  <div class="apollo-plate">
+    
+    <!-- Screws -->
+    <div class="screw top-left"><div class="slot"></div></div>
+    <div class="screw top-right"><div class="slot" style="transform: rotate(45deg);"></div></div>
+    <div class="screw bottom-left"><div class="slot" style="transform: rotate(-30deg);"></div></div>
+    <div class="screw bottom-right"><div class="slot" style="transform: rotate(15deg);"></div></div>
+
+    <!-- Switch Assembly -->
+    <div class="switch-assembly">
+      <!-- Guard -->
+      <div class="guard-left"></div>
+      <div class="guard-right"></div>
+      <div class="guard-bottom"></div>
+      
+      <!-- Toggle Mechanism -->
+      <div class="toggle-well">
+        
+        <!-- Red Base Ring (Static) -->
+        <div class="red-base-ring"></div>
+        
+        <!-- Button (Clickable area) -->
+        <button class="theme-toggle apollo-toggle" data-anim="hyperdrive" aria-label="Toggle Hyperdrive" id="apollo-toggle-btn">
+          <!-- The Gray Lever -->
+          <div class="toggle-lever">
+            <div class="ridge"></div>
+            <div class="ridge"></div>
+            <div class="ridge"></div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Base Wrapper */
+  .apollo-switch-wrapper {
+    display: inline-block;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4));
+  }
+
+  /* Main Metal Plate (Square) */
+  .apollo-plate {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #7c858e, #626a73);
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 
+      inset 1px 1px 2px rgba(255,255,255,0.3),
+      inset -2px -2px 4px rgba(0,0,0,0.5),
+      0 0 0 1px #4a5056,
+      2px 2px 5px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+  }
+
+  /* Screws */
+  .screw {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle at 30% 30%, #a4aab0, #5c6266);
+    border-radius: 50%;
+    box-shadow: 
+      inset -1px -1px 2px rgba(0,0,0,0.6),
+      inset 1px 1px 1px rgba(255,255,255,0.4),
+      1px 1px 2px rgba(0,0,0,0.4);
+  }
+  .screw.top-left { top: 10px; left: 10px; }
+  .screw.top-right { top: 10px; right: 10px; }
+  .screw.bottom-left { bottom: 10px; left: 10px; }
+  .screw.bottom-right { bottom: 10px; right: 10px; }
+  
+  .screw .slot {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: #2a2d30;
+    transform-origin: center;
+    margin-top: -1px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  }
+
+  /* Switch Assembly */
+  .switch-assembly {
+    position: relative;
+    width: 60px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* U-Guard */
+  .guard-left, .guard-right {
+    position: absolute;
+    width: 8px;
+    height: 60px;
+    background: linear-gradient(90deg, #5c6266, #9098a0, #4a5056);
+    top: 10px;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 
+      2px 0 5px rgba(0,0,0,0.5),
+      inset 1px 0 2px rgba(255,255,255,0.5),
+      inset -1px 0 2px rgba(0,0,0,0.6);
+    z-index: 10;
+  }
+  .guard-left { left: 0; }
+  .guard-right { right: 0; }
+
+  .guard-bottom {
+    position: absolute;
+    width: 44px;
+    height: 8px;
+    background: linear-gradient(180deg, #9098a0, #4a5056);
+    bottom: 10px;
+    left: 8px;
+    border-radius: 4px;
+    box-shadow: 
+      0 2px 5px rgba(0,0,0,0.5),
+      inset 0 1px 2px rgba(255,255,255,0.5),
+      inset 0 -1px 2px rgba(0,0,0,0.6);
+    z-index: 10;
+  }
+
+  /* Toggle Well (The hole) */
+  .toggle-well {
+    width: 26px;
+    height: 50px;
+    background: #111;
+    border-radius: 13px;
+    box-shadow: 
+      inset 0 4px 8px rgba(0,0,0,0.8),
+      inset 0 -1px 2px rgba(255,255,255,0.1),
+      0 1px 1px rgba(255,255,255,0.3);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Red Base Ring (Static inside well) */
+  .red-base-ring {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle at 50% 30%, #ff4d4d, #b30000);
+    border-radius: 50%;
+    box-shadow: 
+      0 2px 4px rgba(0,0,0,0.8), 
+      inset 0 1px 2px rgba(255,255,255,0.6),
+      inset 0 -2px 4px rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+  .red-base-ring::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px; height: 12px;
+    background: #000;
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+  }
+
+  /* The actual clickable button */
+  .apollo-toggle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 5;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* The Lever (2.5D Illusion) */
+  .toggle-lever {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 16px;
+    height: 24px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    
+    /* 
+      Fast mechanical transition.
+      Using translate instead of rotateX prevents the visual "spring pull" effect 
+      where the flat plane appears to rotate into the screen.
+    */
+    transition: all 0.1s ease-out;
+    
+    /* DEFAULT STATE: OFF / DOWN */
+    /* Positioned in the bottom half of the well */
+    transform: translate(-50%, 0px); 
+    background: linear-gradient(180deg, #d1d5db 0%, #9ca3af 20%, #4b5563 100%);
+    box-shadow: 
+      0 -3px 6px rgba(0,0,0,0.7), /* Drop shadow falling UP into the well */
+      0 -1px 2px rgba(0,0,0,0.9),
+      inset 0 2px 2px rgba(255,255,255,0.9), /* Light catches top edge */
+      inset 0 -2px 2px rgba(0,0,0,0.6);
+  }
+
+  /* ACTIVE STATE: ON / UP */
+  .apollo-toggle.is-on .toggle-lever {
+    /* Positioned in the top half of the well */
+    transform: translate(-50%, -100%);
+    background: linear-gradient(0deg, #d1d5db 0%, #9ca3af 20%, #4b5563 100%);
+    box-shadow: 
+      0 3px 6px rgba(0,0,0,0.7), /* Drop shadow falling DOWN into the well */
+      0 1px 2px rgba(0,0,0,0.9),
+      inset 0 -2px 2px rgba(255,255,255,0.9), /* Light catches bottom edge */
+      inset 0 2px 2px rgba(0,0,0,0.6);
+  }
+
+  /* Lever Ridges */
+  .ridge {
+    width: 12px;
+    height: 2px;
+    background: #374151;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.3);
+    transition: all 0.1s ease-out;
+  }
+  
+  /* Reverse ridge lighting when flipped up */
+  .apollo-toggle.is-on .ridge {
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.3);
+  }
+
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const toggleBtn = document.getElementById('apollo-toggle-btn');
+    if (!toggleBtn) return;
+
+    // Check initial state
+    const isDark = document.documentElement.classList.contains('theme-space');
+    if (isDark) {
+      toggleBtn.classList.add('is-on');
+    }
+
+    // Handle physical flip
+    toggleBtn.addEventListener('click', () => {
+      // Physically snap the switch immediately
+      toggleBtn.classList.toggle('is-on');
+      
+      // Disable the button temporarily to prevent double clicks mid-warp (3.2 seconds)
+      toggleBtn.style.pointerEvents = 'none';
+      setTimeout(() => {
+        toggleBtn.style.pointerEvents = 'auto';
+      }, 3200);
+    });
+
+    // Keep synced if theme changes via storage or other UI
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          const isNowDark = document.documentElement.classList.contains('theme-space');
+          if (isNowDark) {
+            toggleBtn.classList.add('is-on');
+          } else {
+            toggleBtn.classList.remove('is-on');
+          }
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+  });
+</script>

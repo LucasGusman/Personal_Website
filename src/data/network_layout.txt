@@ -1,0 +1,67 @@
+# Neural Network Builder Template
+# The current live 3D brain map topology is restricted natively to the physical mappings defined here!
+
+ATHLETICS
+	Sports
+		Lacrosse
+		Indoor Volleyball
+		Sand Volleyball
+		Dodgeball
+		Rock Climbing
+		Paintball
+		Ultimate Frisbee
+	Racing
+		Kart Racing
+		F1
+		Driving Simulators
+
+TACTICS
+	Games
+		Poker
+		Chess - "Always up for a game!"
+		Magic the Gathering - "Pre-release is the best"
+		Board games in general
+	Puzzles
+		Escape Rooms
+		Logic Puzzles
+		Wooden/Metal Puzzles
+
+CINEMA
+	Movies
+		Tenet - "Easily my favorite movie"
+		Inception
+		Interstellar
+		Christopher Nolan
+		Book of Eli
+		Gladiator
+		Shutter Island
+		Deja Vu
+	Franchises
+		Star Wars
+		Marvel
+		Lord of the Rings
+
+INTERACTIVE
+	Story Driven
+		Spider-Man
+		Ghost of Yōtei
+		God of War
+		The Last of Us
+	Co-Op
+		Keep Talking and Nobody Explodes
+		It Takes Two
+
+ENGINEERING
+	Aerospace
+		Space Exploration
+		Rockets
+	Fabrication
+		3D Printing
+
+LIFESTYLE
+	Finance
+		Investing
+		Stock Market
+	Culture
+		Traveling
+		Music - "If I Ain't Got You is a BANGER"

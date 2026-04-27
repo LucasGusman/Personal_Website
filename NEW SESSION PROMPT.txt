@@ -1,0 +1,13 @@
+Hello! We are working on a highly immersive, interactive personal portfolio website designed with a dual "Vintage NASA / Apollo Era" and "Deep Space" theme.
+
+Before we begin coding, I need you to familiarize yourself with the current state of the project, its architecture, and its design philosophy. Please execute the following steps in order to build your context:
+
+1. **Read the README.md**: View the contents of `README.md` in the root directory to get a high-level overview of the project's features, tech stack (Astro, React, Three.js, Tailwind v4), and the directory structure.
+2. **Read the HANDOFF.md**: View the contents of `HANDOFF.md` in the root directory. This is the critical developer handoff file. It contains the specific color palettes for both themes, detailed architectural notes on the complex interactive features (like the WebGL coverflow and the custom Canvas transitions), and the current backlog of next steps.
+3. **Explore the Core Implementations**: To understand how the styling and logic are applied, please briefly view the following key files:
+    * `src/styles/global.css`: Notice how the CSS Variables are structured to support the `.theme-space` toggle and the custom transition keyframes.
+    * `src/layouts/Layout.astro` and `src/pages/index.astro`: Look at how the CSS Variables are utilized in the Tailwind utility classes to support seamless theme transitioning.
+    * `src/components/Navigation.astro`: Review the bottom `<script>` block to understand the `localStorage` logic and the custom HTML5 Canvas `requestAnimationFrame` logic used for the "Hyperdrive" transition.
+    * `src/components/ProjectsCarousel.jsx`: Briefly review this file to understand the React Three Fiber WebGL implementation.
+
+Once you have read these files and understand the tech stack, the dual-theme CSS Variable architecture, and the complex animations, summarize your understanding of the project and ask me what we should work on next!

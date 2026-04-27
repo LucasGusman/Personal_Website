@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Resume | Lucas">
+  <div class="max-w-3xl mx-auto px-6 py-24 w-full">
+    <div class="flex items-center justify-between mb-16">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-baunk font-bold text-[var(--text-secondary)] mb-2 transition-colors duration-500">Service Record</h1>
+        <div class="h-1 w-1/2 bg-gradient-to-r from-[var(--accent-red)] to-transparent rounded-full transition-colors duration-500"></div>
+      </div>
+      <a href="#" class="hidden md:flex px-6 py-3 bg-[var(--text-primary)] text-[var(--bg-primary)] font-semibold rounded-full hover:scale-105 transition-all text-sm items-center gap-2 shadow-md duration-500">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        </svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- Timeline -->
+    <div data-mascot="Analyzing career trajectory... Looks like a solid history of successful deployments." class="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[var(--text-primary)]/10 before:to-transparent before:transition-colors before:duration-500">
+      
+      {[1, 2, 3].map((entry) => (
+        <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+          <div class="flex items-center justify-center w-10 h-10 rounded-full border border-[var(--border-color)] bg-[var(--white-bg)] text-[var(--accent-teal)] shadow-sm shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors duration-500 group-hover:border-[var(--accent-teal)] group-hover:bg-[var(--bg-gradient-2)]">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+            </svg>
+          </div>
+
+          <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-[var(--border-color)] bg-[var(--white-bg)] shadow-sm group-hover:shadow-md group-hover:border-[var(--border-hover)] transition-all duration-500">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-bold text-[var(--text-primary)] text-lg transition-colors duration-500">Station Commander {entry}</h3>
+              <span class="text-xs font-mono text-[var(--text-primary)]/50 transition-colors duration-500">2023 - Present</span>
+            </div>
+            <h4 class="text-[var(--accent-red)] text-sm font-medium mb-4 transition-colors duration-500">Deep Space Network</h4>
+            <p class="text-[var(--text-primary)]/70 text-sm leading-relaxed transition-colors duration-500">
+              Maintained critical systems, upgraded warp cores, and engineered seamless hyper-jump vectors. Awaiting your actual experience data to be inserted here.
+            </p>
+          </div>
+        </div>
+      ))}
+      
+    </div>
+  </div>
+</Layout>

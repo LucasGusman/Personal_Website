@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+    { params: { id: '4' } },
+    { params: { id: '5' } },
+    { params: { id: '6' } },
+    { params: { id: '7' } },
+    { params: { id: '8' } },
+  ];
+}
+
+const { id } = Astro.params;
+---
+
+<Layout title={`Project ${id} | Lucas`}>
+  <div class="max-w-4xl mx-auto px-6 py-24 w-full relative z-10">
+    <a href="/projects" class="inline-flex items-center gap-2 text-[var(--text-primary)]/70 hover:text-[var(--accent-red)] transition-colors duration-500 mb-12 uppercase text-xs tracking-widest font-mono">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Return to Catalog
+    </a>
+    
+    <div class="inline-block mb-12 transition-colors duration-500">
+      <h1 class="text-5xl md:text-7xl font-baunk font-bold text-[var(--text-secondary)] mb-4 transition-colors duration-500">PROJECT {id.padStart(2, '0')}</h1>
+      <div class="h-1 w-32 bg-gradient-to-r from-[var(--accent-teal)] to-transparent transition-colors duration-500"></div>
+    </div>
+    
+    <div class="bg-[var(--white-bg)]/60 backdrop-blur-md border border-[var(--border-color)] rounded-2xl p-8 md:p-12 shadow-sm transition-colors duration-500">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="flex h-3 w-3 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-red)] opacity-75 transition-colors duration-500"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--accent-red)] transition-colors duration-500"></span>
+        </span>
+        <span class="text-xs font-mono uppercase tracking-widest text-[var(--text-primary)]/70 transition-colors duration-500">Status: Transmission Received</span>
+      </div>
+
+      <div class="prose prose-lg text-[var(--text-primary)]/80 font-sans leading-relaxed max-w-none transition-colors duration-500">
+        <p>This is the detailed mission brief and transmission log for Expedition {id}. The visual data and source code are currently being decrypted by the mainframe.</p>
+        <p>As the project comes fully online, this section will contain the architecture details, challenges faced, and the technology stack utilized to bring this mission to life.</p>
+      </div>
+    </div>
+  </div>
+</Layout>

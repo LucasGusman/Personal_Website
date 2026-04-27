@@ -1,0 +1,169 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const PROJECTS = [
+  { id: 1, title: 'PROJECT 01', image: '/projects/Picture2.jpg', link: '/projects/1' },
+  { id: 2, title: 'PROJECT 02', image: '/projects/VideoCapture.jpg', link: '/projects/2' },
+  { id: 3, title: 'PROJECT 03', image: '/projects/sevenColors.gif', link: '/projects/3' },
+  { id: 4, title: 'PROJECT 04', color: '#ed4153', link: '/projects/4' },
+  { id: 5, title: 'PROJECT 05', color: '#21859c', link: '/projects/5' },
+  { id: 6, title: 'PROJECT 06', color: '#043b5c', link: '/projects/6' },
+  { id: 7, title: 'PROJECT 07', color: '#fca311', link: '/projects/7' },
+  { id: 8, title: 'PROJECT 08', color: '#12122b', link: '/projects/8' },
+];
+---
+
+<Layout title="CSS 3D Carousel | Lucas">
+  <!-- Wrapper for the whole page -->
+  <div class="w-full min-h-screen flex flex-col pt-16 md:pt-24 relative overflow-hidden">
+    
+    {/* Page Title - Standard Document Flow */}
+    <div class="px-6 md:px-12 w-full max-w-7xl mx-auto z-20 mb-8 pointer-events-none transition-colors duration-500">
+      <h1 class="text-4xl md:text-6xl font-baunk font-bold text-[var(--text-secondary)] mb-2 transition-colors duration-500">CSS 3D Archive</h1>
+      <div class="h-1 w-24 bg-gradient-to-r from-[var(--accent-red)] to-transparent rounded-full mb-4 transition-colors duration-500"></div>
+      <p class="text-[var(--text-primary)]/70 max-w-xs md:max-w-md text-sm md:text-base transition-colors duration-500">A pure CSS 3D comparison against the WebGL engine. Use arrow keys, scroll wheel, or swipe.</p>
+    </div>
+
+    <!-- 3D Environment Container -->
+    <div class="flex-grow w-full relative perspective-container flex items-center justify-center overflow-hidden touch-none select-none pb-20" style="perspective: 1400px;">
+        
+        <!-- The Rotator Hub -->
+        <div id="css-carousel" class="relative carousel" style="width: 350px; height: 250px; transform: rotateY(0deg); transform-style: preserve-3d;">
+            
+            {PROJECTS.map((item, i) => {
+                return (
+                    <a href={item.link} 
+                       draggable="false"
+                       class="card absolute top-0 left-0 w-full h-full bg-[var(--bg-primary)] border border-[var(--border-color)] shadow-xl flex flex-col justify-end overflow-hidden cursor-pointer hover:border-[var(--accent-red)] hover:shadow-2xl transition-all duration-500 group"
+                       style={`transform-style: preserve-3d; ${!item.image ? `background-color: ${item.color};` : ''}`}
+                       data-index={i}>
+                         
+                         {item.image && (
+                           <img src={item.image} alt={item.title} draggable="false" class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity" />
+                         )}
+
+                         <!-- Card Glass Blur -->
+                         <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-0 pointer-events-none"></div>
+
+                         {/* Title Overlay Container */}
+                         <div class="relative z-10 w-full p-4 md:p-6 bg-gradient-to-t from-[var(--text-primary)]/90 to-transparent translate-y-1 group-hover:translate-y-0 transition-all duration-500">
+                            <h2 class="text-lg md:text-xl font-bold text-[var(--bg-primary)] tracking-wide drop-shadow-md uppercase transition-colors duration-500">{item.title}</h2>
+                         </div>
+                    </a>
+                )
+            })}
+            
+        </div>
+    </div>
+  </div>
+
+  <style>
+      .perspective-container {
+          perspective: 1400px;
+      }
+      .carousel {
+          transform-style: preserve-3d;
+          /* Use a sleek spring-like cubic bezier */
+          transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .card {
+          transform-style: preserve-3d;
+          /* Vintage NASA style subtle reflection below the card */
+          -webkit-box-reflect: below 12px linear-gradient(transparent 70%, rgba(4, 59, 92, 0.15));
+      }
+  </style>
+
+  <script define:vars={{ count: PROJECTS.length }}>
+      const carousel = document.getElementById('css-carousel');
+      const cards = document.querySelectorAll('.card');
+      let currentIndex = 0;
+      const theta = 360 / count;
+
+      // Ensure proper media query translation for the cards on responsive screens
+      function resizeCards() {
+          const isDesktop = window.innerWidth >= 768;
+          const translateZ = isDesktop ? 600 : 400; // Push further back on desktop
+          cards.forEach((card, i) => {
+              const angle = i * theta;
+              card.style.transform = `rotateY(${angle}deg) translateZ(${translateZ}px)`;
+          });
+      }
+      window.addEventListener('resize', resizeCards);
+      resizeCards();
+
+      function rotateCarousel() {
+          const angle = currentIndex * -theta;
+          carousel.style.transform = `rotateY(${angle}deg)`;
+      }
+
+      // Bind Keyboard Support
+      window.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+              currentIndex++;
+              rotateCarousel();
+          } else if (e.key === 'ArrowLeft') {
+              currentIndex--;
+              rotateCarousel();
+          }
+      });
+
+      // Bind Mouse Wheel Support
+      let wheelTimeout;
+      window.addEventListener('wheel', (e) => {
+          const container = document.querySelector('.perspective-container');
+          if (!container.contains(e.target)) return;
+          
+          e.preventDefault();
+          
+          if (wheelTimeout) return;
+          
+          if (e.deltaY > 0) {
+              currentIndex++;
+          } else {
+              currentIndex--;
+          }
+          rotateCarousel();
+          
+          // 400ms lock between spins to prevent flying out of control
+          wheelTimeout = setTimeout(() => {
+              wheelTimeout = null;
+          }, 400); 
+      }, { passive: false });
+
+      // Bind Pointer Drag (Mouse/Touch Drag)
+      let isDragging = false;
+      let dragStartX = 0;
+
+      window.addEventListener('pointerdown', e => {
+          const container = document.querySelector('.perspective-container');
+          if (container.contains(e.target)) {
+              isDragging = true;
+              dragStartX = e.clientX;
+              document.body.style.cursor = 'grabbing';
+          }
+      });
+
+      window.addEventListener('pointerup', e => {
+          if (!isDragging) return;
+          isDragging = false;
+          document.body.style.cursor = '';
+          
+          const endX = e.clientX;
+          const threshold = 50; // pixels to trigger a spin
+
+          if (dragStartX - endX > threshold) {
+              currentIndex++; 
+              rotateCarousel();
+          } else if (endX - dragStartX > threshold) {
+              currentIndex--; 
+              rotateCarousel();
+          }
+      });
+
+      // Optional: Prevent drag sticking if mouse leaves screen
+      window.addEventListener('pointercancel', () => {
+          isDragging = false;
+          document.body.style.cursor = '';
+      });
+  </script>
+</Layout>

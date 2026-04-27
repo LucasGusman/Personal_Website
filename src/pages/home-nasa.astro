@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import Mascot from '../components/Mascot.jsx';
+import Navigation from '../components/Navigation.astro';
+import { ClientRouter } from 'astro:transitions';
+---
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>NASA Vintage | Theme Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <ClientRouter />
+</head>
+<body class="min-h-screen flex flex-col relative overflow-x-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans antialiased selection:bg-[var(--accent-teal)]/30 selection:text-[var(--text-primary)] pb-16 md:pb-0 md:pl-20 transition-colors duration-500">
+    
+    <!-- Background Elements -->
+    <div class="fixed inset-0 z-[-1] bg-gradient-to-br from-[var(--bg-gradient-1)] via-[var(--bg-gradient-2)] to-[var(--bg-gradient-3)] opacity-80 pointer-events-none transition-colors duration-500"></div>
+    
+    <!-- Ambient Orbs -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-[var(--orb-teal)] blur-[120px] pointer-events-none z-[-1] transition-colors duration-500"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[30%] h-[30%] rounded-full bg-[var(--orb-red)] blur-[100px] pointer-events-none z-[-1] transition-colors duration-500"></div>
+    
+    <Navigation />
+
+    <main class="flex-grow flex flex-col relative z-10">
+        <!-- Hero Section -->
+        <section data-mascot="Welcome to the Apollo Protocol. I am your automated mission guide!" class="min-h-[85vh] flex flex-col justify-center items-start pt-20 px-6 max-w-6xl mx-auto w-full relative">
+            <div class="max-w-3xl z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--white-bg)] border border-[var(--border-color)] mb-8 shadow-sm transition-colors duration-500">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-red)] animate-pulse"></span>
+                    <span class="text-xs font-mono text-[var(--text-primary)]/80 tracking-wider">APOLLO PROTOCOL</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-baunk font-bold leading-tight mb-6 text-[var(--text-secondary)] transition-colors duration-500">
+                    Charting the <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-red)] to-[var(--accent-teal)]">Analog Cosmos.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-[var(--text-primary)]/80 font-light max-w-xl mb-10 leading-relaxed transition-colors duration-500">
+                    A vintage space program aesthetic. I build sleek, refined, and intriguing experiences that push the boundaries of what is possible on the web.
+                </p>
+                
+                <div class="flex flex-wrap items-center gap-6">
+                    <button class="px-8 py-4 bg-[var(--accent-red)] text-white font-semibold rounded-full hover:scale-105 transition-transform shadow-[0_0_20px_var(--orb-red)]">Explore Projects</button>
+                    <button class="px-8 py-4 text-[var(--text-primary)] font-medium rounded-full border border-[var(--border-hover)] bg-[var(--white-bg)] hover:bg-[var(--text-primary)]/5 transition-colors shadow-sm duration-500">Read Transmissions</button>
+                </div>
+            </div>
+
+            <!-- Decorative Element -->
+            <div class="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-[var(--border-color)] opacity-50 flex items-center justify-center animate-[spin_60s_linear_infinite] hidden lg:flex pointer-events-none transition-colors duration-500">
+                <div class="w-[400px] h-[400px] rounded-full border border-[var(--border-hover)] border-dashed absolute mix-blend-overlay transition-colors duration-500"></div>
+                <div class="w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-[var(--orb-teal)] to-[var(--orb-red)] blur-2xl transition-colors duration-500"></div>
+                <div class="absolute top-0 left-1/2 w-4 h-4 rounded-full bg-[var(--accent-red)] shadow-[0_0_20px_var(--accent-red)] -translate-x-1/2 -translate-y-1/2 transition-colors duration-500"></div>
+            </div>
+        </section>
+
+        <!-- Quick Features Section -->
+        <section data-mascot="Scanning archives... I found 3 analog voyager probe logs waiting for review." class="max-w-6xl mx-auto w-full px-6 py-12 relative z-10 border-t border-[var(--border-color)] bg-[var(--white-overlay)] transition-colors duration-500">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[1, 2, 3].map((item) => (
+                    <div class="group p-8 rounded-2xl bg-[var(--white-bg)] border border-[var(--border-color)] hover:border-[var(--border-hover)] hover:shadow-lg transition-all cursor-pointer relative overflow-hidden backdrop-blur-sm duration-500">
+                        <div class="text-[var(--text-primary)]/50 font-mono text-sm mb-4 border-b border-[var(--border-color)] pb-2 transition-colors duration-500">Log // 1969.{item}</div>
+                        <h3 class="text-xl font-medium text-[var(--text-primary)] mb-3 transition-colors duration-500">Voyager Probe {item}</h3>
+                        <p class="text-[var(--text-primary)]/70 text-sm leading-relaxed transition-colors duration-500">
+                            A sleek and intriguing exploration into analog digital territories. High contrast red and blueprint teal applied cleanly.
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </section>
+    </main>
+    <Mascot client:only="react" transition:persist="mascot" />
+</body>
+</html>

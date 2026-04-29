@@ -3,6 +3,8 @@
 ## Overview
 This document serves as the architectural summary and current state of the Lucas Portfolio project. It is intended to get a new AI agent or developer immediately up to speed on the codebase.
 
+*(Note: Please review `TECH_STACK.md` for a comprehensive breakdown of the core technologies used and the rationale behind choosing them.)*
+
 **Tech Stack**: Astro (SSG/Routing) + React (Components) + React Three Fiber/Three.js (WebGL) + Tailwind CSS v4 (Styling) + Vanilla JS (Canvas Animations).
 **Aesthetic/Theme**: Dual Theme ("Vintage NASA" / Apollo Era & "Deep Space" Galaxy Theme). 
 *   **Day Palette (Vintage NASA)**: Alabaster (`#faf8f2`), Navy (`#043b5c`), Apollo Red (`#ed4153`), Teal (`#21859c`).
@@ -44,6 +46,7 @@ This document serves as the architectural summary and current state of the Lucas
     *   Replaced the static `.glb` biological brain map with a dynamic, rotating Milky Way simulation.
     *   Data hubs (Categories, Items) are placed precisely along the spiral arms.
     *   Maintains the complex screen-space 2D HTML projection logic so text labels effortlessly track the galaxy as it rotates on the Y-axis.
+    *   The entire procedural galaxy (both the interactive data nodes and the millions of ambient background stars) now seamlessly rotates together, creating a fully immersive environment.
 
 ### 6. High-Fidelity 2.5D Apollo Switch
 *   **File**: `src/components/ApolloSwitch.astro`

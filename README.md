@@ -13,7 +13,7 @@ Built with performance and high-end design in mind, this project blends static s
     *   **Expanding Singularity**: A buttery-smooth `clip-path` expansion that creates a black hole originating exactly from the user's mouse click.
 *   **WebGL 3D Project Catalog**: An infinite-scrolling, momentum-based 3D coverflow built with React Three Fiber. Projects are rendered as interactive tiles in 3D space.
 *   **Pure CSS 3D Fallback**: An alternative hardware-accelerated CSS 3D catalog for comparing DOM rendering performance against the WebGL canvas.
-*   **Interactive Galaxy Map**: A high-performance procedural WebGL Milky Way simulation (`/galaxy`) that acts as a 3D navigational mind-map. Built with math (logarithmic spirals) and additive blending, it infinitely rotates while 2D HTML labels track nodes in real-time.
+*   **Interactive Galaxy Map**: A high-performance procedural WebGL Milky Way simulation (`/galaxy`) that acts as a 3D navigational mind-map. Built with math (logarithmic spirals) and additive blending, the entire procedural galaxy (data nodes and ambient stars) infinitely rotates together while 2D HTML labels track nodes in real-time.
 *   **Realistic Apollo Hardware**: Features a purely CSS-rendered 2.5D mechanical toggle switch (`ApolloSwitch.astro`) that uses advanced shadow inversion to physically snap and lock into place, perfectly capturing the vintage spacecraft aesthetic.
 *   **Astro SPA Routing**: Utilizes Astro's `<ClientRouter />` for instant, app-like page transitions while maintaining excellent SEO and initial load speeds.
 
@@ -71,6 +71,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 │   └── styles/
 │       └── global.css          # Tailwind config and CSS Variables
 ├── HANDOFF.md              # Developer documentation and current state
+├── TECH_STACK.md           # Rationale and breakdown of the core tech stack
 ├── package.json
 └── astro.config.mjs
 ```

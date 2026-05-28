@@ -13,7 +13,7 @@ Our goal is to build a highly immersive, interactive experience that seamlessly 
 *   **Why we use it:** Astro ships zero JavaScript by default, making the initial page loads blazingly fast. We utilize Astro's `<ClientRouter />` to enable instant, SPA-like page transitions without the heavy payload of a traditional React Single Page Application. It also allows us to seamlessly mix Vanilla HTML/JS with React components only where needed ("Islands Architecture").
 
 ### **[React 19](https://react.dev/)**
-*   **What it does:** Powers isolated, highly interactive UI components (like the AI Mascot) and serves as the foundation for our 3D ecosystem.
+*   **What it does:** Powers isolated, highly interactive UI components and serves as the foundation for our 3D ecosystem.
 *   **Why we use it:** We use React primarily to access the massive `@react-three/fiber` ecosystem for our 3D project catalog. Astro seamlessly mounts these React components using the `client:only="react"` directive to bypass server-side rendering issues with WebGL.
 
 ---

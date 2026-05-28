@@ -61,7 +61,6 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 │   ├── components/         # Reusable UI components (React & Astro)
 │   │   ├── Navigation.astro    # Sidebar navigation & theme toggle logic
 │   │   ├── ProjectsCarousel.jsx # WebGL 3D React Three Fiber carousel
-│   │   └── Mascot.jsx          # Interactive AI Mascot component
 │   ├── layouts/            # Astro layout shells
 │   │   └── Layout.astro        # Main site wrapper
 │   ├── pages/              # Astro routing

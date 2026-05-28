@@ -1,3 +1,5 @@
 IDEAS BACKLOG:
 
 - Museum type of gallery to show off projects or achievements/certs (https://www.fu-design.com/exhibition/bauhaus-blueprint-qevdv)
+- Cool transition (https://andrewreff.com/)
+- Now, instead of a single container with the year that rotates to the year associated with the page scroll, how could we have each timeline section have its own "year" marker on the timeline side bar that follows that section until you reach the next section where you see the next "year" element and so on? What I mean is give each section of the timeline its own year containter that follows it down the side bar as the user scrolls, then meets with the next year container and as the user keeps scrolling the old year goes up and away with the previous timeline section and the new one takes over. Mimicing the timeline in https://ranomi.nl/highlights

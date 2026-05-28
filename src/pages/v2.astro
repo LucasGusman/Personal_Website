@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Lucas | Space Expedition V2">
+  <div class="relative min-h-[90vh] flex items-center justify-center py-12 px-6 md:px-12 w-full overflow-hidden">
+    
+    <!-- Immersive Space Background overlay -->
+    <div class="space-bg absolute inset-0 z-[-1] pointer-events-none"></div>
+
+    <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+      
+      <!-- Left Column: Telemetry & Hero Copy -->
+      <div data-mascot="Telemetry parameters locked. Solar system map projection online. Ready for comparison protocol." class="lg:col-span-5 flex flex-col items-start text-left">
+        
+        <!-- Welcome Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--white-bg)]/40 border border-[var(--border-color)] mb-6 backdrop-blur-md transition-colors duration-500">
+          <span class="w-2 h-2 rounded-full bg-[var(--accent-red)] animate-[ping_1.5s_ease-in-out_infinite]"></span>
+          <span class="text-[10px] font-mono text-[var(--accent-teal)] tracking-[0.25em] uppercase font-semibold">Mission Protocol // V2.0</span>
+        </div>
+
+        <!-- Architectural Title -->
+        <h1 class="text-6xl md:text-7xl lg:text-8xl font-baunk font-normal leading-[0.9] text-[var(--text-secondary)] mb-6 tracking-tight select-none">
+          LUCAS<br/>
+          <span class="text-3xl md:text-4xl lg:text-5xl font-display font-light text-[var(--text-primary)]">EXPLORER & ENGINEER</span>
+        </h1>
+
+        <!-- Subtext description -->
+        <p class="text-base md:text-lg text-[var(--text-primary)]/80 font-light max-w-lg mb-8 leading-relaxed transition-colors duration-500">
+          Welcome to the comparison sandbox. This iteration introduces structured orbital graphics, responsive spatial composition, and retro-futuristic telemetry panels.
+        </p>
+
+        <!-- Technical Telemetry Data Panel -->
+        <div class="w-full max-w-md mb-10 font-mono text-[11px] text-[var(--text-primary)]/70 bg-[var(--white-bg)]/40 border border-[var(--border-color)] p-5 rounded-2xl backdrop-blur-md shadow-sm transition-colors duration-500">
+          <div class="flex items-center justify-between border-b border-[var(--border-color)] pb-3 mb-3">
+            <span class="text-[10px] font-semibold text-[var(--accent-teal)] uppercase tracking-wider">Telemetry Panel</span>
+            <span class="text-[9px] px-2 py-0.5 rounded bg-[var(--accent-red)]/10 text-[var(--accent-red)] font-semibold uppercase">Real-Time Sync</span>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between telemetry-row">
+              <span>ORBITAL AXIS</span>
+              <span class="font-semibold text-[var(--text-secondary)]">APOLLO-XI // LUNAR</span>
+            </div>
+            <div class="flex justify-between telemetry-row">
+              <span>VESSEL SPEED</span>
+              <span class="font-semibold text-[var(--text-secondary)]">11.2 KM/S</span>
+            </div>
+            <div class="flex justify-between telemetry-row">
+              <span>TARGET DESTINATION</span>
+              <span class="font-semibold text-[var(--text-secondary)]">DEEP GALAXY // ALPHA-C</span>
+            </div>
+            <div class="flex justify-between telemetry-row">
+              <span>FUEL CELL RATIO</span>
+              <span class="font-semibold text-[var(--text-secondary)]">89.4% (NOMINAL)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Callbacks -->
+        <div class="flex flex-wrap gap-4 w-full">
+          <a href="/projects" class="group relative px-6 py-3.5 bg-[var(--accent-red)] text-white font-mono uppercase tracking-wider text-xs rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(237,65,83,0.4)]">
+            <span class="relative z-10 flex items-center gap-2">
+              Launch Expedition
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </span>
+          </a>
+          <a href="/" class="px-6 py-3.5 text-[var(--text-primary)] font-mono uppercase tracking-wider text-xs rounded-xl border border-[var(--border-hover)] bg-[var(--white-bg)]/20 hover:bg-[var(--text-primary)]/5 transition-all duration-300 backdrop-blur-sm">
+            Compare v1 Home
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Celestial Orbital Composition -->
+      <div class="lg:col-span-7 flex items-center justify-center relative w-full aspect-square max-w-[600px] mx-auto select-none">
+        
+        <!-- 1. Blueprint Orbital Lines Background -->
+        <img 
+          src="/images/Home Page/Separate Assets/Orbital Lines.png" 
+          class="orbital-lines absolute w-[95%] h-[95%] object-contain spin-reverse pointer-events-none" 
+          alt="Orbital Blueprint" 
+        />
+
+        <!-- 2. Central Celestial Body (Moon) -->
+        <div class="relative w-[52%] h-[52%] rounded-full overflow-hidden flex items-center justify-center shadow-[0_0_80px_rgba(4,59,92,0.15)] bg-slate-900/10 pointer-events-none">
+          <img 
+            src="/images/Home Page/Separate Assets/Moon.png" 
+            class="w-full h-full object-cover rounded-full spin-slow" 
+            alt="Moon Surface" 
+          />
+        </div>
+
+        <!-- 3. Animated Orbiting Small Sphere -->
+        <div class="orbiting-sphere pointer-events-none">
+          <div class="w-full h-full rounded-full overflow-hidden shadow-lg border border-slate-500/20 bg-slate-800/10">
+            <img 
+              src="/images/Home Page/Separate Assets/Small Sphere.png" 
+              class="w-full h-full object-cover rounded-full" 
+              alt="Satellite Sphere" 
+            />
+          </div>
+        </div>
+
+        <!-- 4. Aerospace Vessel (Spaceship) floating in orbit -->
+        <div class="spaceship-float absolute w-[30%] h-[30%] top-[10%] right-[5%] z-40 cursor-grab active:cursor-grabbing">
+          <img 
+            src="/images/Home Page/Separate Assets/Spaceship.png" 
+            class="w-full h-full object-contain pointer-events-none" 
+            alt="Apollo Spaceship" 
+          />
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Page V2 Background Logic */
+  .space-bg {
+    background-image: url('/images/Home%20Page/Full_Background_Space.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    mix-blend-mode: color-burn;
+    transition: opacity 0.7s ease, mix-blend-mode 0.7s ease;
+  }
+  
+  :global(.theme-space) .space-bg {
+    opacity: 0.65;
+    mix-blend-mode: normal;
+  }
+
+  /* Blueprint transparency filtering based on theme */
+  .orbital-lines {
+    mix-blend-mode: multiply;
+    opacity: 0.65;
+    transition: filter 0.7s ease, mix-blend-mode 0.7s ease, opacity 0.7s ease;
+  }
+
+  :global(.theme-space) .orbital-lines {
+    filter: invert(1) brightness(1.3) contrast(1.1);
+    mix-blend-mode: screen;
+    opacity: 0.35;
+  }
+
+  /* Slow rotations for background elements */
+  .spin-slow {
+    animation: spinSlow 340s linear infinite;
+  }
+  
+  .spin-reverse {
+    animation: spinReverse 220s linear infinite;
+  }
+
+  @keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes spinReverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+
+  /* Complex 3D Tilted Orbit Animation for the Small Sphere */
+  .orbiting-sphere {
+    position: absolute;
+    width: 7%;
+    height: 7%;
+    top: 46.5%;
+    left: 46.5%;
+    transform-origin: center;
+    animation: sphereOrbit 28s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes sphereOrbit {
+    0% {
+      transform: rotate3d(0.55, 1, 0.25, 0deg) translateX(190px) rotate3d(0.55, 1, 0.25, 0deg) scale(0.9);
+      z-index: 30;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.25)) brightness(1.05);
+    }
+    50% {
+      /* behind the moon */
+      transform: rotate3d(0.55, 1, 0.25, 180deg) translateX(190px) rotate3d(0.55, 1, 0.25, -180deg) scale(0.6);
+      z-index: -10;
+      filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.1)) brightness(0.45);
+    }
+    100% {
+      transform: rotate3d(0.55, 1, 0.25, 360deg) translateX(190px) rotate3d(0.55, 1, 0.25, -360deg) scale(0.9);
+      z-index: 30;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.25)) brightness(1.05);
+    }
+  }
+
+  /* Spaceship Floating and Thruster Glow Keyframes */
+  .spaceship-float {
+    animation: spaceshipFloat 8s ease-in-out infinite, spaceshipGlow 4s ease-in-out infinite;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .spaceship-float:hover {
+    transform: scale(1.08) translate(-6px, -6px);
+  }
+
+  @keyframes spaceshipFloat {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate(-8px, -14px) rotate(1deg);
+    }
+  }
+
+  @keyframes spaceshipGlow {
+    0%, 100% {
+      filter: drop-shadow(0 0 10px rgba(255, 92, 109, 0.3)) drop-shadow(0 0 3px rgba(249, 115, 22, 0.15));
+    }
+    50% {
+      filter: drop-shadow(0 0 20px rgba(255, 92, 109, 0.6)) drop-shadow(0 0 6px rgba(249, 115, 22, 0.3));
+    }
+  }
+
+  /* Telemetry Panel Borders styling helper */
+  .telemetry-row {
+    border-bottom: 1px dashed var(--border-color);
+    padding: 6px 0;
+    transition: border-color 0.5s ease;
+  }
+  
+  .telemetry-row:last-child {
+    border-bottom: none;
+  }
+</style>
